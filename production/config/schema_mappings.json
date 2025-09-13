@@ -1,0 +1,82 @@
+{
+  "schema_mappings": {
+    "default": {
+      "description": "Standard movie database schema",
+      "mappings": {
+        "movie_id": "id",
+        "title": "title",
+        "release_date": "release_date",
+        "genre": "genre",
+        "director": "director",
+        "cast": "cast",
+        "rating": "rating",
+        "plot_summary": "plot_summary",
+        "duration_minutes": "duration_minutes",
+        "language": "language",
+        "country": "country"
+      }
+    },
+    "alternative": {
+      "description": "Alternative schema with different field names",
+      "mappings": {
+        "movie_id": "movie_id",
+        "title": "movie_title",
+        "release_date": "release_year",
+        "genre": "movie_genre",
+        "director": "director_name",
+        "cast": "actor_list",
+        "rating": "imdb_rating",
+        "plot_summary": "description",
+        "duration_minutes": "runtime",
+        "language": "original_language",
+        "country": "production_country"
+      }
+    },
+    "tmdb": {
+      "description": "The Movie Database (TMDB) schema",
+      "mappings": {
+        "movie_id": "id",
+        "title": "title",
+        "release_date": "release_date",
+        "genre": "genres",
+        "director": "director",
+        "cast": "cast",
+        "rating": "vote_average",
+        "plot_summary": "overview",
+        "duration_minutes": "runtime",
+        "language": "original_language",
+        "country": "production_countries"
+      }
+    },
+    "imdb": {
+      "description": "IMDB-style schema",
+      "mappings": {
+        "movie_id": "tconst",
+        "title": "primaryTitle",
+        "release_date": "startYear",
+        "genre": "genres",
+        "director": "directors",
+        "cast": "actors",
+        "rating": "averageRating",
+        "plot_summary": "plot",
+        "duration_minutes": "runtimeMinutes",
+        "language": "language",
+        "country": "country"
+      }
+    }
+  },
+  "database_types": {
+    "postgresql": {
+      "connection_string": "postgresql://username:password@host:port/database",
+      "driver": "psycopg2"
+    },
+    "mysql": {
+      "connection_string": "mysql://username:password@host:port/database",
+      "driver": "pymysql"
+    },
+    "sqlite": {
+      "connection_string": "sqlite:///path/to/database.db",
+      "driver": "sqlite3"
+    }
+  }
+}
