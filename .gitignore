@@ -8,3 +8,35 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+
+# Session data and user information
+data/sessions/
+*.session
+
+# Database files (keep structure but not data)
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
