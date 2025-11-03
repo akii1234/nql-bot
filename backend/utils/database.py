@@ -42,6 +42,25 @@ def init_database():
     # Ensure data directory exists
     os.makedirs("data", exist_ok=True)
     
-    # Create tables
-    create_tables()
-    print("Database tables created successfully!")
+    # Check if we should skip table creation (for existing production databases)
+    skip_creation = os.getenv("SKIP_TABLE_CREATION", "false").lower() == "true"
+    use_production_db = os.getenv("USE_PRODUCTION_DB", "false").lower() == "true"
+    
+    if skip_creation or use_production_db:
+        print("✅ Using existing database schema (skipping table creation)")
+        print("📊 MCP will adapt to your existing schema automatically")
+        return
+    
+    # For new/development databases, check if tables already exist
+    from sqlalchemy import inspect
+    inspector = inspect(engine)
+    existing_tables = inspector.get_table_names()
+    
+    if existing_tables:
+        # Tables already exist, don't recreate
+        print(f"✅ Found existing tables: {', '.join(existing_tables)}")
+        print("📊 Using existing schema, MCP will adapt automatically")
+    else:
+        # No tables found, create them from our models
+        create_tables()
+        print("✅ Database tables created successfully from models!")

@@ -34,7 +34,7 @@ Your database should ideally have:
 - A **movies table** with fields like: title, genre, director, rating, release_date, etc.
 - (Optional) A **viewership/analytics table** for watch statistics
 
-### Step 2: Analyze Your Database
+### Step 2: Configure for Existing Database
 
 ```bash
 # 1. Copy environment template
@@ -52,7 +52,11 @@ DATABASE_URL=mysql://username:password@localhost:3306/your_database
 # For SQLite:
 DATABASE_URL=sqlite:///path/to/your/database.db
 
-# 3. Run the database analyzer
+# IMPORTANT: Set these to prevent creating new tables
+USE_PRODUCTION_DB=true
+SKIP_TABLE_CREATION=true
+
+# 3. Run the database analyzer (optional - just to see your schema)
 uv run python production/scripts/analyze_database.py
 ```
 
@@ -63,9 +67,27 @@ uv run python production/scripts/analyze_database.py
 - ✅ What field mappings you need to configure
 - ✅ Test queries to verify everything works
 
-### Step 3: Update LLM Prompt with Your Schema
+### Step 3: That's It! MCP Handles the Rest
 
-The most important step! Edit `backend/services/query_processor.py`:
+**With MCP, you don't need to update any code!**
+
+The system will automatically:
+- ✅ Detect your table names (even if they're called `films`, `film_catalog`, etc.)
+- ✅ Detect your column names (even if they're called `film_title`, `category`, etc.)
+- ✅ Provide your schema to the LLM
+- ✅ Generate SQL using YOUR exact table and column names
+
+**Just start the app and it works!**
+
+```bash
+./start.sh
+```
+
+---
+
+### Optional: Manual Prompt Update (Old Approach - Not Needed with MCP)
+
+If for some reason you want to manually update the LLM prompt (not recommended with MCP), edit `backend/services/query_processor.py`:
 
 Find this section (around line 106-115):
 ```python
