@@ -4,15 +4,13 @@
 
 echo "🎬 Starting NQL Movie Chatbot..."
 
-# Check if .env file exists
+# Check if .env file exists, if not create one with defaults
+# Note: API keys will be entered in the app UI, not in .env file
 if [ ! -f ".env" ]; then
     echo "⚠️  .env file not found. Creating from template..."
     cp env.example .env
-    echo "📝 Please edit .env file and add your API key:"
-    echo "   For Gemini: Set GEMINI_API_KEY=your_key and AI_PROVIDER=gemini"
-    echo "   For OpenAI: Set OPENAI_API_KEY=your_key and AI_PROVIDER=openai"
-    echo "   Then run this script again."
-    exit 1
+    echo "✅ Created .env file with default settings"
+    echo "📝 Note: You'll enter your API key in the app UI at http://localhost:8501"
 fi
 
 # Check if database exists, if not populate it

@@ -1,16 +1,17 @@
 # NQL Movie Chatbot 🎬
 
-A Natural Query Language (NQL) chatbot that allows users to query movie databases using natural language. Built with FastAPI, LangChain, and Streamlit.
+A Natural Query Language (NQL) chatbot that allows users to query movie databases using natural language. Built with FastAPI, LangChain, Model Context Protocol (MCP), and Streamlit.
 
 ## Features
 
 - **🎯 User-Friendly Setup**: No configuration files needed - just enter your name and API key
 - **🔐 Secure Session Management**: API keys are stored securely and automatically removed on logout
 - **🤖 Multiple AI Providers**: Choose between OpenAI GPT or Google Gemini 2.0 Flash
+- **🔌 MCP Integration**: Uses Model Context Protocol for direct database access
 - **💬 Natural Language Processing**: Ask questions about movies in plain English
 - **🗣️ Conversational Interface**: Say "hello", "hi", "what can you do?" for natural interactions
-- **🧠 Smart Query Parsing**: Uses LangChain to understand complex queries
-- **🎬 Comprehensive Movie Database**: Ratings, viewership, metadata, and more
+- **🧠 Dynamic Schema Detection**: Automatically adapts to your database structure
+- **🎬 Flexible Database Support**: Works with any movie database
 - **⚡ Real-time Results**: Fast API responses with query execution metrics
 - **🌐 Beautiful Web Interface**: Modern Streamlit frontend with chat history
 - **🔄 Session Persistence**: Your conversation continues until you logout
@@ -60,49 +61,58 @@ nql-bot/
 ### 1. Prerequisites
 
 - Python 3.11+
-- uv package manager
-- OpenAI or Google Gemini API key (you'll enter this in the app)
+- uv package manager ([install here](https://github.com/astral-sh/uv))
+- OpenAI or Google Gemini API key
 
-### 2. Installation
+### 2. Installation & Setup
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/akhiltripathi/nql-bot.git
 cd nql-bot
 
-# Install dependencies using uv
+# Install dependencies
 uv sync
-```
 
-### 3. Setup Database
-
-```bash
-# Populate database with sample data
-uv run python scripts/populate_sample_data.py
-```
-
-### 4. Run the Application
-
-#### Easy Way (Recommended)
-```bash
+# Start the application (this will auto-create database with 100 sample movies)
 ./start.sh
 ```
 
-#### Manual Way
-```bash
-# Start backend
-uv run python main.py
+That's it! The script will:
+- ✅ Install all dependencies
+- ✅ Create `.env` file automatically
+- ✅ Populate database with sample data if not exists
+- ✅ Start both backend and frontend servers
 
-# In another terminal, start frontend
-uv run streamlit run frontend/app.py
-```
+### 3. First Time Setup in Browser
 
-### 5. First Time Setup
+1. **Open** `http://localhost:8501` in your browser
+2. **Enter your name**
+3. **Choose AI provider** (OpenAI or Gemini)
+4. **Enter your API key** (keys stored securely in session, removed on logout)
+5. **Start chatting!** 
 
-1. **Open your browser** to `http://localhost:8501`
-2. **Enter your name** and choose AI provider (OpenAI or Gemini)
-3. **Enter your API key** (keys are stored securely and removed on logout)
-4. **Start chatting!** Ask questions about movies in natural language
+### 4. Get Your API Key
+
+#### Google Gemini (Recommended - Free tier available):
+1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with Google account
+3. Click "Create API Key"
+4. Copy the key
+
+#### OpenAI:
+1. Go to [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Sign in
+3. Click "Create new secret key"
+4. Copy the key
+
+### 5. Start Using!
+
+Ask questions like:
+- "How many movies do you have?"
+- "Show me action movies from 2024"
+- "Find most watched movies of 2025"
+- "What are the highest rated drama movies?"
 
 ### 6. API Documentation
 

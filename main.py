@@ -6,7 +6,12 @@ import os
 from dotenv import load_dotenv
 
 from backend.utils.database import init_database
-from backend.routers import queries, setup
+# OLD ROUTERS (kept for reference, not used)
+# from backend.routers import queries, setup
+# from backend.routers import direct_queries, setup
+
+# NEW MCP APPROACH
+from backend.routers import mcp_queries, setup
 
 load_dotenv()
 
@@ -26,8 +31,8 @@ async def lifespan(app: FastAPI):
 # Create FastAPI app
 app = FastAPI(
     title="NQL Movie Chatbot",
-    description="Natural Query Language chatbot for movie queries using LangChain",
-    version="0.1.0",
+    description="Natural Query Language chatbot for movie queries using Model Context Protocol (MCP) and LangChain",
+    version="0.2.0",  # Updated to 0.2.0 with MCP integration
     lifespan=lifespan
 )
 
@@ -41,7 +46,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(queries.router)
+app.include_router(mcp_queries.router)
 app.include_router(setup.router)
 
 
@@ -50,12 +55,13 @@ async def root():
     """Root endpoint"""
     return {
         "message": "Welcome to NQL Movie Chatbot!",
-        "version": "0.1.0",
+        "version": "0.2.0",
+        "approach": "Model Context Protocol (MCP)",
+        "description": "Uses MCP to give LLM direct, structured access to your database",
         "endpoints": {
             "docs": "/docs",
             "setup": "/api/setup/user-setup",
-            "process_query": "/api/queries/process",
-            "sample_movies": "/api/queries/sample"
+            "process_query": "/api/queries/process"
         }
     }
 
